@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Company</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .Block {
+        height: 600px;
+        width: 700px;
+        background-color: #b0e0e6;
+        text-align: center;
+        margin: 20px auto 0;
+    }
+    .title {
+        font-weight: 900;
+        font-size: 25px;
+        margin-top: 40px;
+        color: #191970;
+        margin-right: 100px;
+    }
+    .title a {
+        text-decoration: none;
+    }
+
+    .mainButton {
+        border-radius: 10px;
+        background-color: #7fffd4;
+        width: 100px;
+        height: 25px;
+        font-size: 15px;
+        margin: 100px;
+        text-decoration: none;
+    }
+
+    .mainButton a {
+        text-decoration: none;
+    }
+    .mainButtonCompany a {
+        text-decoration: none;
+    }
+    .input {
+        border-radius: 5px;
+        width: 200px;
+        height: 20px;
+        margin: 20px;
+    }
+
+</style>
+<body>
+<div class="Block">
+    <form th:action="@{/update/{id}(id=${company.id})}" method="post" th:object="${company}">
+        <div>
+            <span class="title"><label for="name">Company name: </label></span><input class="input" type="text" id="name" th:field="*{companyName}"/>
+        </div>
+        <div>
+            <span class="title"><label for="country">Located country: </label></span><input class="input" type="text" id="country" th:field="*{locatedCountry}"/>
+        </div>
+        <button class="mainButton" type="submit">Save</button>
+    </form>
+</div>
+</body>
+</html>
