@@ -14,7 +14,7 @@ public class Company {
     private String companyName;
     @Column(name = "located_country")
     private String locatedCountry;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "company", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "company", fetch = FetchType.LAZY)
     private List<Course> courseList;
 
     public Company() {

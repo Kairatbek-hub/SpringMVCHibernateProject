@@ -71,7 +71,7 @@
         <table>
           <div>
           <tr th:each="company:${companies}" class="title">
-            <span><td><a th:href="@{/course/{id}(id=${company.id})}" th:text="${company.companyName}"></a></td></span>
+            <span><td><a th:href="@{/course(companyId=${company.id})}" th:text="${company.companyName}"></a></td></span>
             <td><a th:href="@{/edit/{id}(id=${company.id})}"><button class="button">update</button></a></td>
             <td><a th:href="@{/delete/{id}(id=${company.id})}"><button class="button">delete</button></a></td>
           </div>

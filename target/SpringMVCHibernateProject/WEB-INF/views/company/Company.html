@@ -79,7 +79,7 @@
               </tr>
           </table>
         <button class="mainButtonCompany">
-          <a href="/course/getCourse">Add new</a>
+          <a th:href="@{/course/getCourse(companyId=${param.companyId})}">Add new</a>
 <!--          <a th:href="/course(company=${company.id})">Add new</a>-->
         </button>
       </div>

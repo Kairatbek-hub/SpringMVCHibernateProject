@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import peaksoft.model.Company;
 import peaksoft.model.Course;
 import peaksoft.service.CompanyService;
 import peaksoft.service.CourseService;
@@ -17,8 +16,8 @@ public class CourseController {
     @Autowired
     private CompanyService companyService;
 
-    @GetMapping("/{id}")
-    public String getCompanyInf(@PathVariable Long id, Model model) {
+    @GetMapping()
+    public String getCompanyInf(@RequestParam("companyId") Long id, Model model) {
         model.addAttribute("courses", courseService.courseList());
         return "company/Company";
     }
@@ -29,7 +28,7 @@ public class CourseController {
         return "course/addCourse";
     }
     @PostMapping("/postCourse")
-    public String courseSave(@ModelAttribute Course course,@RequestParam("id") Long id, Model model){
+    public String courseSave(@ModelAttribute Course course,@RequestParam("companyId") Long id, Model model){
         course.setCompany(companyService.getById(id));
         courseService.saveCourse(course);
         model.addAttribute("courses", courseService.courseList());

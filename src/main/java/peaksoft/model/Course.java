@@ -15,10 +15,10 @@ public class Course {
     @Column(name = "course_name")
     private String courseName;
     private int duration;
-    @ManyToOne(cascade = {PERSIST,DETACH,DETACH,REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {MERGE,DETACH,REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
-    @ManyToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "course_group", joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<Group> groupList;
