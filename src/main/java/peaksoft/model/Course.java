@@ -15,7 +15,7 @@ public class Course {
     @Column(name = "course_name")
     private String courseName;
     private int duration;
-    @ManyToOne(cascade = {MERGE,DETACH,REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {DETACH,REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
     @ManyToMany(cascade = {DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY)
