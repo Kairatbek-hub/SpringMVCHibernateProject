@@ -1,29 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../index.css" />
     <title>Document</title>
   </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .Block {
+      height: 600px;
+      width: 700px;
+      background-color: #b0e0e6;
+      text-align: center;
+      margin: 20px auto 0;
+    }
+
+    .title {
+      font-weight: 900;
+      font-size: 25px;
+      margin-top: 40px;
+      color: #191970;
+      margin-right: 100px;
+    }
+    .title a {
+      text-decoration: none;
+    }
+
+    .mainButton {
+      border-radius: 10px;
+      background-color: #7fffd4;
+      width: 100px;
+      height: 25px;
+      font-size: 15px;
+      margin: 100px;
+      text-decoration: none;
+    }
+
+    .mainButton a {
+      text-decoration: none;
+    }
+    .mainButtonCompany a {
+      text-decoration: none;
+    }
+    .input {
+      border-radius: 5px;
+      width: 200px;
+      height: 20px;
+      margin: 20px;
+    }
+
+  </style>
   <body>
     <div class="Block">
-      <div style="display: flex; padding-left: 60px">
+      <form th:action="@{/group/postGroup(courseId=${param.courseId})}" method="post" th:object="${group}">
         <div>
-          <div class="title">Group name:</div>
-          <div class="title">Date of start:</div>
-          <div class="title">Date of finish:</div>
+          <span class="title"><label for="name">Group Name: </label></span><input class="input" type="text" id="name" th:field="*{groupName}"/>
         </div>
-
-        <div style="margin-top: 30px">
-          <div><input class="input" /></div>
-          <div><input class="input" /></div>
-          <div><input class="input" /></div>
+        <div>
+          <span class="title"><label for="dateOfStart">Date of start: </label></span><input class="input" type="text" id="dateOfStart" th:field="*{dateOfStart}"/>
         </div>
-      </div>
+        <div>
+          <span class="title"><label for="dateOfFinish">Date of finish: </label></span><input class="input" type="text" id="dateOfFinish" th:field="*{dateOfFinish}"/>
+        </div>
+<!--                <div>-->
+<!--                  <span class="title"><label for="course_id">Course Id: </label></span><input class="input" type="text" id="course_id" th:field="*{}"/>-->
+<!--                </div>-->
+        <button class="mainButton" type="submit">Save</button>
+      </form>
 
-      <button class="mainButton"><a href="../company/Company.html">Save</a></button>
+<!--      <button class="mainButton"><a href="../company/Company.html">Save</a></button>-->
     </div>
   </body>
 </html>

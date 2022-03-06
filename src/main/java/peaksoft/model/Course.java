@@ -18,7 +18,7 @@ public class Course {
     @ManyToOne(cascade = {DETACH,REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
-    @ManyToMany(cascade = {DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.EAGER)
     @JoinTable(name = "course_group", joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<Group> groupList;
@@ -90,10 +90,11 @@ public class Course {
                 '}';
     }
 
-    public void addGroupToTheCourse(Group group) {
+    public void setGroup(Group group) {
         if (groupList == null) {
             groupList = new ArrayList<>();
         }
         groupList.add(group);
+//        group.setCourse(this);
     }
 }

@@ -30,14 +30,25 @@ public class CourseDaoImpl implements CourseDao {
     }
 
     @Override
-    public List<Course> courseList() {
+    public List<Course> courseList(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        List<Course> courses = entityManager.createQuery("select c from Course c").getResultList();
+        List<Course> courses = entityManager.createQuery("select c from Course c where c.company.id = :id").setParameter("id",id).getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
         return courses;
+    }
+
+    @Override
+    public List<Course> courseList() {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            EntityTransaction entityTransaction = entityManager.getTransaction();
+            entityTransaction.begin();
+            List<Course> courses = entityManager.createQuery("select c from Course c").getResultList();
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return courses;
     }
 
     @Override

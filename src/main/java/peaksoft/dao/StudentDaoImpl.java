@@ -21,7 +21,7 @@ public class StudentDaoImpl implements StudentDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.persist(student);
+        entityManager.merge(student);
         entityManager.getTransaction().commit();
         entityManager.close();
     }

@@ -17,10 +17,10 @@ public class Group {
     @Column(name = "group_name")
     private String groupName;
     @Column(name = "date_of_start")
-    private Date dateOfStart;
+    private String dateOfStart;
     @Column(name = "date_of_finish")
-    private Date dateOfFinish;
-    @ManyToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY, mappedBy = "groupList")
+    private String dateOfFinish;
+    @ManyToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.EAGER, mappedBy = "groupList")
     private List<Course> courseList;
     @OneToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY, mappedBy = "group")
     private List<Student> studentList;
@@ -28,7 +28,7 @@ public class Group {
     public Group() {
     }
 
-    public Group(String groupName, Date dateOfStart, Date dateOfFinish) {
+    public Group(String groupName, String dateOfStart, String dateOfFinish) {
         this.groupName = groupName;
         this.dateOfStart = dateOfStart;
         this.dateOfFinish = dateOfFinish;
@@ -63,6 +63,13 @@ public class Group {
     public void setCourseList(List<Course> courseList) {
         this.courseList = courseList;
     }
+    public void setCourse(Course course) {
+        if (courseList == null) {
+            courseList = new ArrayList<>();
+        }
+        courseList.add(course);
+        course.setGroup(this);
+    }
 
     public Long getId() {
         return id;
@@ -80,19 +87,19 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public Date getDateOfStart() {
+    public String getDateOfStart() {
         return dateOfStart;
     }
 
-    public void setDateOfStart(Date dateOfStart) {
+    public void setDateOfStart(String dateOfStart) {
         this.dateOfStart = dateOfStart;
     }
 
-    public Date getDateOfFinish() {
+    public String getDateOfFinish() {
         return dateOfFinish;
     }
 
-    public void setDateOfFinish(Date dateOfFinish) {
+    public void setDateOfFinish(String dateOfFinish) {
         this.dateOfFinish = dateOfFinish;
     }
 
@@ -106,10 +113,4 @@ public class Group {
                 '}';
     }
 
-    public void addCourseToTheGroup(Course course) {
-        if (courseList == null) {
-            courseList = new ArrayList<>();
-        }
-        courseList.add(course);
-    }
 }

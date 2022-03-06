@@ -56,7 +56,8 @@
 </style>
 <body>
 <div class="Block">
-    <form th:action="@{/course/update/{id}(id=${course.id})}" method="post" th:object="${course}">
+<!--    <form th:action="@{/course/update/{id}(id=${course.id})}" method="post" th:object="${course}">-->
+    <form th:action="@{/course/update(courseId=${param.courseId})}" method="post" th:object="${course}">
         <div>
             <span class="title"><label for="name">Course Name: </label></span><input class="input" type="text" id="name" th:field="*{courseName}"/>
         </div>

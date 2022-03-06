@@ -24,7 +24,7 @@ public class GroupDaoImpl implements GroupDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.persist(group);
+        entityManager.merge(group);
         entityManager.getTransaction().commit();
         entityManager.close();
     }

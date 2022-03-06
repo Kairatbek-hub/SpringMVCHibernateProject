@@ -21,7 +21,7 @@ public class TeacherDaoImpl implements TeacherDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        entityManager.persist(teacher);
+        entityManager.merge(teacher);
         entityManager.getTransaction().commit();
         entityManager.close();
     }
