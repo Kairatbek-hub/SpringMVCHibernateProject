@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update Company</title>
+    <title>Document</title>
 </head>
 <style>
     * {
@@ -19,6 +19,7 @@
         text-align: center;
         margin: 20px auto 0;
     }
+
     .title {
         font-weight: 900;
         font-size: 25px;
@@ -56,15 +57,23 @@
 </style>
 <body>
 <div class="Block">
-    <form th:action="@{/update/{id}(id=${company.id})}" th:method="patch" th:object="${company}">
+    <form th:action="@{/student/postStudent(groupId=${param.groupId})}" method="post" th:object="${student}">
         <div>
-            <span class="title"><label for="name">Company name: </label></span><input class="input" type="text" id="name" th:field="*{companyName}"/>
+            <span class="title"><label for="firstName">First Name: </label></span><input class="input" type="text" id="firstName" th:field="*{firstName}"/>
         </div>
         <div>
-            <span class="title"><label for="country">Located country: </label></span><input class="input" type="text" id="country" th:field="*{locatedCountry}"/>
+            <span class="title"><label for="lastName">Last Name: </label></span><input class="input" type="text" id="lastName" th:field="*{lastName}"/>
         </div>
+        <div>
+            <span class="title"><label for="email">Email Address: </label></span><input class="input" type="text" id="email" th:field="*{email}"/>
+        </div>
+        <div>
+            <span class="title"><label for="studyFormat">Study Format: </label></span><input class="input" type="text" id="studyFormat" th:field="*{studyFormat}"/>
+        </div>
+
         <button class="mainButton" type="submit">Save</button>
     </form>
+
 </div>
 </body>
 </html>

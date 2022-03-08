@@ -64,8 +64,8 @@
   </style>
   <body>
     <div class="Block">
-      <div class="Block-title">PeakSoft</div>
-      <div style="font-size: 25px">Courses:</div>
+      <div class="Block-title">Courses</div>
+<!--      <div style="font-size: 25px">Courses:</div>-->
       <div>
           <table>
               <tr th:each="course:${courses}">
@@ -77,7 +77,14 @@
 <!--                <td><a th:href="@{/course/delete/{id}(id=${course.id})}"><button class="button">delete</button></a></td>-->
 
                   <td><a th:href="@{/course/edit(courseId=${course.id})}"><button class="button">update</button></a></td>
-                  <td><a th:href="@{/course/delete(courseId=${course.id})}"><button class="button">delete</button></a></td> </div>
+<!--                  <td><a th:href="@{/course/delete(courseId=${course.id})}" th:method="delete" th:class="${course}"><button class="button">delete</button></a></td>-->
+                    <td>
+                        <form th:action="@{/course/delete/{id}(id=${course.id})}"th:method="delete">
+                            <input type="submit" th:value="deleteWork">
+                        </form>
+                    </td>
+
+                </div>
               </tr>
           </table>
         <button class="mainButtonCompany">
@@ -117,7 +124,7 @@
 <!--          <a href="/teacher/getTeacher">Add new</a>-->
 <!--        </button>-->
 <!--      </div>-->
-      <a href="/" style="text-decoration: none">Back to Main page</a>
+      <a th:href="@{/}" style="text-decoration: none">Back to Main page</a>
     </div>
   </body>
 </html>

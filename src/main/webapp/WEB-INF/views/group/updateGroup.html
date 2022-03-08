@@ -56,12 +56,15 @@
 </style>
 <body>
 <div class="Block">
-    <form th:action="@{/update/{id}(id=${company.id})}" th:method="patch" th:object="${company}">
+    <form th:action="@{/group/update(groupId=${param.groupId})}" th:method="post" th:object="${group}">
         <div>
-            <span class="title"><label for="name">Company name: </label></span><input class="input" type="text" id="name" th:field="*{companyName}"/>
+            <span class="title"><label for="name">Group Name: </label></span><input class="input" type="text" id="name" th:field="*{groupName}"/>
         </div>
         <div>
-            <span class="title"><label for="country">Located country: </label></span><input class="input" type="text" id="country" th:field="*{locatedCountry}"/>
+            <span class="title"><label for="dateOfStart">Date of start: </label></span><input class="input" type="text" id="dateOfStart" th:field="*{dateOfStart}"/>
+        </div>
+        <div>
+            <span class="title"><label for="dateOfFinish">Date of finish: </label></span><input class="input" type="text" id="dateOfFinish" th:field="*{dateOfFinish}"/>
         </div>
         <button class="mainButton" type="submit">Save</button>
     </form>

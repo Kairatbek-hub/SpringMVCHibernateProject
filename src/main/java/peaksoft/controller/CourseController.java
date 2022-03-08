@@ -5,14 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.model.Course;
-import peaksoft.model.Group;
 import peaksoft.service.CompanyService;
 import peaksoft.service.CourseService;
-import peaksoft.service.GroupService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/course")
@@ -21,8 +17,8 @@ public class CourseController {
     private CourseService courseService;
     @Autowired
     private CompanyService companyService;
-    @Autowired
-    private GroupService groupService;
+//    @Autowired
+//    private GroupService groupService;
 
     @GetMapping()
     public String getCourseInf(@RequestParam("companyId") Long id, Model model) {
@@ -36,7 +32,8 @@ public class CourseController {
 //        }
 //
 //        model.addAttribute("groups",groupSet);
-        return "company/Company";
+
+        return "course/Courses";
     }
 
     @GetMapping("/getCourse")
@@ -49,7 +46,7 @@ public class CourseController {
         course.setCompany(companyService.getById(id));
         courseService.saveCourse(course);
         model.addAttribute("courses", courseService.courseList(id));
-        return "/company/Company";
+        return "course/Courses";
     }
     @GetMapping("/edit")
     public String getCourseToUpdate(@RequestParam("courseId") Long id, Model model) {
@@ -58,19 +55,21 @@ public class CourseController {
         return "course/updateCourse";
     }
 
-    @PostMapping ("/update")
-    public String updateCourse(@ModelAttribute Course course, Model model){
+    @PatchMapping("/update")
+    public String updateCourse(@ModelAttribute Course course, Model model, @RequestParam("courseId") Long id , @RequestParam("companyId") Long cid){
+        course.setId(id);
         courseService.updateCourse(course);
 //        model.addAttribute("courses", courseService.courseList(id));
-//        return "/company/Company";
-        return "redirect:/course";
+//        return "course/Courses";
+        return "redirect:/course?companyId=" + cid;
     }
 
-    @GetMapping("/delete")
-    public String deleteCourse(@RequestParam("courseId") Long id, Model model) {
+    @DeleteMapping("/delete/{id}")
+    public String deleteCourse(@PathVariable("id") Long id, Model model) {
+        System.out.println(id);
         courseService.deleteCourse(id);
 //        model.addAttribute("courses",courseService.courseList(id));
-        return "redirect:/course";
+        return "redirect:/course?companyId=1";
     }
 //    @GetMapping("/edit/{id}")
 //    public String getCourseToUpdate(@PathVariable("id") Long id, Model model) {
@@ -80,10 +79,10 @@ public class CourseController {
 //    }
 //
 //    @PostMapping ("/update/{id}")
-//    public String updateCourse(@ModelAttribute Course course, Model model){
+//    public String updateCourse(@PathVariable("id")Long id, @ModelAttribute Course course, Model model){
 //        courseService.updateCourse(course);
-//        model.addAttribute("courses", courseService.courseList());
-//        return "/company/Company";
+//        model.addAttribute("courses", courseService.courseList(id));
+//        return "course/Courses";
 //    }
 //
 //    @GetMapping("/delete/{id}")

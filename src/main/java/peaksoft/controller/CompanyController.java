@@ -16,7 +16,7 @@ public class CompanyController {
     @GetMapping
     public String mainPage(Model model) {
         model.addAttribute("companies", companyService.companyList());
-        return "/index";
+        return "company/Companies";
     }
     @GetMapping("/getCompany")
     public String getCompanyAddPage(Model model){
@@ -27,7 +27,7 @@ public class CompanyController {
     public String companySave(@ModelAttribute Company company, Model model){
         companyService.saveCompany(company);
         model.addAttribute("companies", companyService.companyList());
-        return "/index";
+        return "company/Companies";
     }
     @GetMapping("/edit/{id}")
     public String getCompanyToUpdate(@PathVariable("id") Long id, Model model) {
@@ -36,18 +36,18 @@ public class CompanyController {
         return "company/updateCompany";
     }
 
-    @PostMapping ("/update/{id}")
+    @PatchMapping ("/update/{id}")
     public String updateCompany(@ModelAttribute Company company, Model model){
         companyService.updateCompany(company);
         model.addAttribute("companies", companyService.companyList());
-        return "/index";
+        return "company/Companies";
     }
 
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteCompany(@PathVariable("id") Long id, Model model) {
         companyService.deleteCompany(id);
         model.addAttribute("companies", companyService.companyList());
-        return "/index";
+        return "company/Companies";
     }
 
 }

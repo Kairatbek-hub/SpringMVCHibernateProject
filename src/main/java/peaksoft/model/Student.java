@@ -17,6 +17,7 @@ public class Student {
     private String lastName;
     private String email;
     @Column(name = "study_format")
+    @Enumerated(value = EnumType.STRING)
     private StudyFormat studyFormat;
     @ManyToOne(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")

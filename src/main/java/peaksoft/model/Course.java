@@ -18,11 +18,11 @@ public class Course {
     @ManyToOne(cascade = {DETACH,REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
-    @ManyToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "course_group", joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<Group> groupList;
-    @OneToOne(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToOne(cascade = {ALL}, fetch = FetchType.EAGER, mappedBy = "course")
     private Teacher teacher;
 
     public Course() {

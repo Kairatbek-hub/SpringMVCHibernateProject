@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -56,7 +56,7 @@
 </style>
 <body>
 <div class="Block">
-    <form th:action="@{/update/{id}(id=${company.id})}" method="post" th:object="${company}">
+    <form th:action="@{/update/{id}(id=${company.id})}" th:method="patch" th:object="${company}">
         <div>
             <span class="title"><label for="name">Company name: </label></span><input class="input" type="text" id="name" th:field="*{companyName}"/>
         </div>

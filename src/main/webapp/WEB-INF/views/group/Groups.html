@@ -64,16 +64,17 @@
 </style>
 <body>
 <div class="Block">
-<div style="font-size: 25px">Groups:</div>
+    <div class="Block-title">Groups</div>
+<!--<div style="font-size: 25px">Groups:</div>-->
 <div>
     <table>
         <tr th:each="group:${groups}" class="title">
             <div>
-                <span><td><a th:href="@{/student/{id}(id=${group.id})}" th:text="${group.groupName}"></a></td></span>
+                <span><td><a th:href="@{/student(groupId=${group.id})}" th:text="${group.groupName}"></a></td></span>
             </div>
             <div>
-                <td><a th:href="@{/group/edit/{id}(id=${group.id})}"><button class="button">update</button></a></td>
-                <td><a th:href="@{/group/delete/{id}(id=${group.id})}"><button class="button">delete</button></a></td>
+                <td><a th:href="@{/group/edit(groupId=${group.id})}"><button class="button">update</button></a></td>
+                <td><a th:href="@{/group/delete(groupId=${group.id})}"><button class="button">delete</button></a></td>
             </div>
         </tr>
     </table>
@@ -81,6 +82,24 @@
         <a th:href="@{/group/getGroup(courseId=${param.courseId})}">Add new</a>
     </button>
 </div>
+    <div class="Block-title">Instructors</div>
+    <div>
+        <table>
+            <tr th:each="teacher:${teachers}" class="title">
+                <div>
+                    <span><td><a th:href="@{/teacher}" th:text="${teacher.firstName}"></a></td></span>
+                    <span><td th:text="${teacher.lastName}"></td></span>
+                </div>
+                <div>
+                    <td><a th:href="@{/teacher/edit(teacherId=${teacher.id})}"><button class="button">update</button></a></td>
+                    <td><a th:href="@{/teacher/delete(groupId=${teacher.id})}"><button class="button">delete</button></a></td>
+                </div>
+            </tr>
+        </table>
+        <button class="mainButtonCompany">
+            <a th:href="@{/teacher/getTeacher(courseId=${param.courseId})}">Add new</a>
+        </button>
+    </div>
 </div>
 </body>
 </html>

@@ -65,19 +65,22 @@
   </style>
   <body>
     <div class="Block">
-      <div class="Block-title">Main page</div>
+      <div class="Block-title">Companies</div>
       <div class="Block-content">
-        <div>
         <table>
           <div>
           <tr th:each="company:${companies}" class="title">
             <span><td><a th:href="@{/course(companyId=${company.id})}" th:text="${company.companyName}"></a></td></span>
             <td><a th:href="@{/edit/{id}(id=${company.id})}"><button class="button">update</button></a></td>
-            <td><a th:href="@{/delete/{id}(id=${company.id})}"><button class="button">delete</button></a></td>
-          </div>
+<!--            <td><a th:href="@{/delete/{id}(id=${company.id})}"><button class="button">delete</button></a></td>-->
+         <td>
+           <form th:action="@{/delete/{id}(id=${company.id})}"th:method="delete">
+             <input class="button" type="submit" th:value="Delete">
+           </form>
+         </td>
           </tr>
+          </div>
         </table>
-        </div>
       </div>
       <button class="mainButton">
         <a th:href="@{/getCompany}">Add new</a>

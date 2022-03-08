@@ -19,7 +19,7 @@ public class GroupController {
     @GetMapping
     public String getGroupInf(@RequestParam("courseId") Long id, Model model) {
         model.addAttribute("groups", groupService.groupList());
-        return "course/Course";
+        return "group/Groups";
     }
 
     @GetMapping("/getGroup")
@@ -32,28 +32,30 @@ public class GroupController {
         group.setCourse(courseService.getById(id));
         groupService.saveGroup(group);
         model.addAttribute("groups", groupService.groupList());
-        return "course/Course";
+        return "group/Groups";
     }
-//    @GetMapping("/edit")
-//    public String getCourseToUpdate(@RequestParam("courseId") Long id, Model model) {
-//        Course course = courseService.getById(id);
-//        model.addAttribute("course", course);
-//        return "course/updateCourse";
-//    }
-//
-//    @PostMapping ("/update")
-//    public String updateCourse(@ModelAttribute Course course, Model model){
-//        courseService.updateCourse(course);
-////        model.addAttribute("courses", courseService.courseList(id));
-////        return "/company/Company";
-//        return "redirect:/course";
-//    }
-//
-//    @GetMapping("/delete")
-//    public String deleteCourse(@RequestParam("courseId") Long id, Model model) {
-//        courseService.deleteCourse(id);
-//        model.addAttribute("courses",courseService.courseList(id));
-//        return "redirect:/course";
-//    }
+    @GetMapping("/edit")
+    public String getGroupToUpdate(@RequestParam("groupId") Long id, Model model) {
+        Group group = groupService.getGroupId(id);
+        model.addAttribute("group", group);
+        return "group/updateGroup";
+    }
+
+    @PostMapping ("/update")
+    public String updateGroup(@ModelAttribute Group group, Model model){
+        groupService.updateGroup(group);
+//        model.addAttribute("group", groupService.groupList());
+//       return "group/Groups";
+        return "redirect:/group";
+    }
+
+    @GetMapping("/delete")
+    public String deleteGroup(@RequestParam("groupId") Long id, Model model) {
+        System.out.println(id);
+        groupService.deleteGroup(id);
+        model.addAttribute("group", groupService.groupList());
+//        return "group/Groups";
+        return "redirect:/group";
+    }
 }
 
