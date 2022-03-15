@@ -2,6 +2,7 @@ package peaksoft.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import peaksoft.model.Course;
 import peaksoft.model.Group;
 
 import javax.persistence.EntityManager;
@@ -30,11 +31,12 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
-    public List<Group> groupList() {
+    public List<Group> groupList(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        List<Group> groups = entityManager.createQuery("select g from Group g").getResultList();
+//        List<Group> groups = entityManager.createQuery("select g from Group g where g.id in (:courseId)",Group.class).setParameter("courseId",id).getResultList();
+        List<Group> groups = entityManager.find(Course.class, id).getGroupList();
         entityManager.getTransaction().commit();
         entityManager.close();
         return groups;
@@ -55,14 +57,15 @@ public class GroupDaoImpl implements GroupDao {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        Group group = entityManager.find(Group.class, id);
-        entityManager.remove(group);
+//        Group group = entityManager.find(Group.class, id);
+//        entityManager.remove(group);
+        entityManager.createQuery("delete from Group where id=:id").setParameter("id", id).executeUpdate();
         entityManager.getTransaction().commit();
         entityManager.close();
     }
 
     @Override
-    public Group getGroupId(Long id) {
+    public Group getGroupById(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();

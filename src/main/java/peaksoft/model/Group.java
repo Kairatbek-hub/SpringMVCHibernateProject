@@ -11,8 +11,18 @@ import static javax.persistence.CascadeType.REFRESH;
 @Entity
 @Table(name = "groups")
 public class Group {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Id
+@SequenceGenerator(
+        name = "company_sequence",
+        sequenceName = "company_sequence",
+        allocationSize = 1
+)
+@GeneratedValue(
+        strategy = GenerationType.SEQUENCE,
+        generator = "company_sequence"
+)
     private Long id;
     @Column(name = "group_name")
     private String groupName;
@@ -20,7 +30,7 @@ public class Group {
     private String dateOfStart;
     @Column(name = "date_of_finish")
     private String dateOfFinish;
-    @ManyToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.EAGER, mappedBy = "groupList")
+    @ManyToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY, mappedBy = "groupList")
     private List<Course> courseList;
     @OneToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY, mappedBy = "group")
     private List<Student> studentList;

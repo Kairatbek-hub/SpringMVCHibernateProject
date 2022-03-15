@@ -12,8 +12,12 @@ import java.util.List;
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
+    private final TeacherDao teacherDao;
+
     @Autowired
-    private TeacherDao teacherDao;
+    public TeacherServiceImpl(TeacherDao teacherDao) {
+        this.teacherDao = teacherDao;
+    }
 
     @Override
     public void saveTeacher(Teacher teacher) {
@@ -21,8 +25,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> teacherList() {
-        return teacherDao.teacherList();
+    public List<Teacher> teacherList(Long id) {
+        return teacherDao.teacherList(id);
     }
 
     @Override

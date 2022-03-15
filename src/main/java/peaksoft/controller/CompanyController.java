@@ -10,44 +10,49 @@ import peaksoft.service.CompanyService;
 @Controller
 @RequestMapping("/")
 public class CompanyController {
+    private final CompanyService companyService;
+
     @Autowired
-    private CompanyService companyService;
+    public CompanyController(CompanyService companyService) {
+        this.companyService = companyService;
+    }
 
     @GetMapping
-    public String mainPage(Model model) {
+    public String allCompanies(Model model) {
         model.addAttribute("companies", companyService.companyList());
         return "company/Companies";
     }
+
     @GetMapping("/getCompany")
-    public String getCompanyAddPage(Model model){
+    public String getCompanyAddPage(Model model) {
         model.addAttribute("company", new Company());
         return "company/addCompany";
     }
+
     @PostMapping("/postCompany")
-    public String companySave(@ModelAttribute Company company, Model model){
+    public String saveCompany(@ModelAttribute Company company) {
         companyService.saveCompany(company);
-        model.addAttribute("companies", companyService.companyList());
-        return "company/Companies";
+        return "redirect:/";
     }
-    @GetMapping("/edit/{id}")
-    public String getCompanyToUpdate(@PathVariable("id") Long id, Model model) {
-        Company company = companyService.getById(id);
+
+    @GetMapping("/editCompany/{companyId}")
+    public String getCompanyToUpdate(@PathVariable("companyId") Long companyId, Model model) {
+        Company company = companyService.getCompanyById(companyId);
         model.addAttribute("company", company);
         return "company/updateCompany";
     }
 
-    @PatchMapping ("/update/{id}")
-    public String updateCompany(@ModelAttribute Company company, Model model){
+    @PatchMapping("/updateCompany/{companyId}")
+    public String updateCompany(@ModelAttribute Company company, @PathVariable("companyId") Long companyId) {
+        company.setId(companyId);
         companyService.updateCompany(company);
-        model.addAttribute("companies", companyService.companyList());
-        return "company/Companies";
+        return "redirect:/";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteCompany(@PathVariable("id") Long id, Model model) {
+    @DeleteMapping("/deleteCompany/{companyId}")
+    public String deleteCompany(@PathVariable("companyId") Long id) {
         companyService.deleteCompany(id);
-        model.addAttribute("companies", companyService.companyList());
-        return "company/Companies";
+        return "redirect:/";
     }
 
 }

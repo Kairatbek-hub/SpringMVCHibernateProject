@@ -4,7 +4,7 @@
     <meta charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Company Page</title>
   </head>
   <style>
     * {
@@ -71,11 +71,10 @@
           <div>
           <tr th:each="company:${companies}" class="title">
             <span><td><a th:href="@{/course(companyId=${company.id})}" th:text="${company.companyName}"></a></td></span>
-            <td><a th:href="@{/edit/{id}(id=${company.id})}"><button class="button">update</button></a></td>
-<!--            <td><a th:href="@{/delete/{id}(id=${company.id})}"><button class="button">delete</button></a></td>-->
+            <td><a th:href="@{/editCompany/{companyId}(companyId=${company.id})}"><button class="button">update</button></a></td>
          <td>
-           <form th:action="@{/delete/{id}(id=${company.id})}"th:method="delete">
-             <input class="button" type="submit" th:value="Delete">
+           <form th:action="@{/deleteCompany/{companyId}(companyId=${company.id})}"th:method="delete">
+             <input class="button" type="submit" th:value="delete">
            </form>
          </td>
           </tr>

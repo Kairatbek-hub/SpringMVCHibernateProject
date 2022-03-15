@@ -27,11 +27,11 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public List<Student> studentList() {
+    public List<Student> studentList(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        List<Student> students = entityManager.createQuery("select s from Student s").getResultList();
+        List<Student> students = entityManager.createQuery("select s from Student s where s.group.id = :id").setParameter("id",id).getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
         return students;

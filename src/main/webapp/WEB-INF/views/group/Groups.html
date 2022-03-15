@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Document</title>
+    <title>Group and Instructor Page</title>
 </head>
 <style>
     * {
@@ -65,7 +65,6 @@
 <body>
 <div class="Block">
     <div class="Block-title">Groups</div>
-<!--<div style="font-size: 25px">Groups:</div>-->
 <div>
     <table>
         <tr th:each="group:${groups}" class="title">
@@ -73,8 +72,12 @@
                 <span><td><a th:href="@{/student(groupId=${group.id})}" th:text="${group.groupName}"></a></td></span>
             </div>
             <div>
-                <td><a th:href="@{/group/edit(groupId=${group.id})}"><button class="button">update</button></a></td>
-                <td><a th:href="@{/group/delete(groupId=${group.id})}"><button class="button">delete</button></a></td>
+                <td><a th:href="@{/group/edit(groupId=${group.id},courseId=${param.courseId})}"><button class="button">update</button></a></td>
+                <td>
+                    <form th:action="@{/group/delete(groupId=${group.id},courseId=${param.courseId})}" th:method="delete">
+                        <input class="button" type="submit" th:value="delete">
+                    </form>
+                </td>
             </div>
         </tr>
     </table>
@@ -91,8 +94,12 @@
                     <span><td th:text="${teacher.lastName}"></td></span>
                 </div>
                 <div>
-                    <td><a th:href="@{/teacher/edit(teacherId=${teacher.id})}"><button class="button">update</button></a></td>
-                    <td><a th:href="@{/teacher/delete(groupId=${teacher.id})}"><button class="button">delete</button></a></td>
+                    <td><a th:href="@{/teacher/edit(teacherId=${teacher.id},courseId=${param.courseId})}"><button class="button">update</button></a></td>
+                    <td>
+                        <form th:action="@{/teacher/delete(teacherId=${teacher.id},courseId=${param.courseId})}" th:method="delete">
+                            <input class="button" type="submit" th:value="delete">
+                        </form>
+                    </td>
                 </div>
             </tr>
         </table>
@@ -100,6 +107,7 @@
             <a th:href="@{/teacher/getTeacher(courseId=${param.courseId})}">Add new</a>
         </button>
     </div>
+    <a th:href="@{/}" style="text-decoration: none">Back to Companies page</a>
 </div>
 </body>
 </html>

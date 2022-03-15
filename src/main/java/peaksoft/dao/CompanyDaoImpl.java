@@ -62,7 +62,7 @@ public class CompanyDaoImpl implements CompanyDao {
     }
 
     @Override
-    public Company getById(Long id) {
+    public Company getCompanyById(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();

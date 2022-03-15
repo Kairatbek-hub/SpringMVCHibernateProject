@@ -10,5 +10,5 @@ public interface CourseDao {
     List<Course> courseList();
     void updateCourse(Course course);
     void deleteCourse(Long id);
-    Course getById(Long id);
+    Course getCourseById(Long id);
 }

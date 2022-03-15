@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
 
+    private final StudentDao studentDao;
+
     @Autowired
-    private StudentDao studentDao;
+    public StudentServiceImpl(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
 
     @Override
     public void saveStudent(Student student) {
@@ -19,8 +23,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> studentList() {
-        return studentDao.studentList();
+    public List<Student> studentList(Long id) {
+        return studentDao.studentList(id);
     }
 
     @Override

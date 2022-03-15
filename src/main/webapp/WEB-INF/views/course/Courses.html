@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Document</title>
+    <title>Course Page</title>
   </head>
   <style>
     * {
@@ -65,7 +65,6 @@
   <body>
     <div class="Block">
       <div class="Block-title">Courses</div>
-<!--      <div style="font-size: 25px">Courses:</div>-->
       <div>
           <table>
               <tr th:each="course:${courses}">
@@ -73,14 +72,10 @@
                 <td><span class="title"><a th:href="@{/group(courseId=${course.id})}" th:text="${course.courseName}"></a></span></td>
                 </div>
                 <div>
-<!--                  <td><a th:href="@{/course/edit/{id}(id=${course.id})}"><button class="button">update</button></a></td>-->
-<!--                <td><a th:href="@{/course/delete/{id}(id=${course.id})}"><button class="button">delete</button></a></td>-->
-
-                  <td><a th:href="@{/course/edit(courseId=${course.id})}"><button class="button">update</button></a></td>
-<!--                  <td><a th:href="@{/course/delete(courseId=${course.id})}" th:method="delete" th:class="${course}"><button class="button">delete</button></a></td>-->
+                  <td><a th:href="@{/course/edit(courseId=${course.id}, companyId=${param.companyId})}"><button class="button">update</button></a></td>
                     <td>
-                        <form th:action="@{/course/delete/{id}(id=${course.id})}"th:method="delete">
-                            <input type="submit" th:value="deleteWork">
+                        <form th:action="@{/course/delete(courseId=${course.id}, companyId=${param.companyId})}"th:method="delete">
+                            <input class="button" type="submit" th:value="delete">
                         </form>
                     </td>
 
@@ -91,40 +86,7 @@
           <a th:href="@{/course/getCourse(companyId=${param.companyId})}">Add new</a>
         </button>
       </div>
-<!--      <div style="font-size: 25px">Groups:</div>-->
-<!--      <div>-->
-<!--        <table>-->
-<!--          <tr th:each="group:${groups}" class="title">-->
-<!--            <div>-->
-<!--              <span><td><a th:href="@{/student/{id}(id=${group.id})}" th:text="${group.groupName}"></a></td></span>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <td><a th:href="@{/group/edit/{id}(id=${group.id})}"><button class="button">update</button></a></td>-->
-<!--              <td><a th:href="@{/group/delete/{id}(id=${group.id})}"><button class="button">delete</button></a></td>-->
-<!--            </div>-->
-<!--          </tr>-->
-<!--        </table>-->
-<!--        <button class="mainButtonCompany">-->
-<!--          <a th:href="@{/group/getGroup(courseId=${c})}">Add new</a>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div style="font-size: 25px">Instructors:</div>-->
-<!--      <div>-->
-<!--        <table>-->
-<!--          <tr th:each="teacher:${teachers}" class="title">-->
-<!--            <div>-->
-<!--              <span><td><a th:text="${teacher.firstName}"></a></td></span>-->
-<!--              <span><td><a th:text="${teacher.lastName}"></a></td></span>-->
-<!--              <td><a th:href="@{/teacher/edit/{id}(id=${teacher.id})}"><button class="button">update</button></a></td>-->
-<!--              <td><a th:href="@{/teacher/delete/{id}(id=${teacher.id})}"><button class="button">delete</button></a></td>-->
-<!--            </div>-->
-<!--          </tr>-->
-<!--        </table>-->
-<!--        <button class="mainButtonCompany">-->
-<!--          <a href="/teacher/getTeacher">Add new</a>-->
-<!--        </button>-->
-<!--      </div>-->
-      <a th:href="@{/}" style="text-decoration: none">Back to Main page</a>
+      <a th:href="@{/}" style="text-decoration: none">Back to Companies page</a>
     </div>
   </body>
 </html>

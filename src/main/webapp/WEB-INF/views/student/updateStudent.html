@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update Group</title>
+    <title>Update Student</title>
 </head>
 <style>
     * {
@@ -19,6 +19,7 @@
         text-align: center;
         margin: 20px auto 0;
     }
+
     .title {
         font-weight: 900;
         font-size: 25px;
@@ -56,18 +57,25 @@
 </style>
 <body>
 <div class="Block">
-    <form th:action="@{/group/update(groupId=${param.groupId},courseId=${param.courseId})}" th:method="patch" th:object="${group}">
+    <form th:action="@{/student/update(studentId=${param.studentId},groupId=${param.groupId})}" th:method="patch" th:object="${student}">
         <div>
-            <span class="title"><label for="name">Group Name: </label></span><input class="input" type="text" id="name" th:field="*{groupName}"/>
+            <span class="title"><label for="firstName">First Name: </label></span><input class="input" type="text" id="firstName" th:field="*{firstName}"/>
         </div>
         <div>
-            <span class="title"><label for="dateOfStart">Date of start: </label></span><input class="input" type="text" id="dateOfStart" th:field="*{dateOfStart}"/>
+            <span class="title"><label for="lastName">Last Name: </label></span><input class="input" type="text" id="lastName" th:field="*{lastName}"/>
         </div>
         <div>
-            <span class="title"><label for="dateOfFinish">Date of finish: </label></span><input class="input" type="text" id="dateOfFinish" th:field="*{dateOfFinish}"/>
+            <span class="title"><label for="email">Email Address: </label></span><input class="input" type="text" id="email" th:field="*{email}"/>
+        </div>
+        <div>
+            <span class="title"><label for="studyFormat">Study Format: </label></span><input class="input" type="text" id="studyFormat" th:field="*{studyFormat}"/>
+        </div>
+        <div>
+            <span class="title"><label for="groupId">Group Id: </label></span><input class="input" type="text" id="groupId" th:field="*{group.id}"/>
         </div>
         <button class="mainButton" type="submit">Update</button>
     </form>
+
 </div>
 </body>
 </html>

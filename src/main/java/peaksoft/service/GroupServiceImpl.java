@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService {
 
+    private final GroupDao groupDao;
+
     @Autowired
-    private GroupDao groupDao;
+    public GroupServiceImpl(GroupDao groupDao) {
+        this.groupDao = groupDao;
+    }
 
     @Override
     public void saveGroup(Group group) {
@@ -19,8 +23,8 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> groupList() {
-        return groupDao.groupList();
+    public List<Group> groupList(Long id) {
+        return groupDao.groupList(id);
     }
 
     @Override
@@ -34,7 +38,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Group getGroupId(Long id) {
-        return groupDao.getGroupId(id);
+    public Group getGroupById(Long id) {
+        return groupDao.getGroupById(id);
     }
 }

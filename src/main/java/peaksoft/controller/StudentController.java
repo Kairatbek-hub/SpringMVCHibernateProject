@@ -12,28 +12,52 @@ import peaksoft.service.StudentService;
 @RequestMapping("/student")
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
+    private final GroupService groupService;
 
     @Autowired
-    private GroupService groupService;
+    public StudentController(StudentService studentService, GroupService groupService) {
+        this.studentService = studentService;
+        this.groupService = groupService;
+    }
 
     @GetMapping
-    public String getStudentInf(@RequestParam("groupId") Long id, Model model) {
-        model.addAttribute("students", studentService.studentList());
+    public String getStudentInf(@RequestParam("groupId") Long groupId,
+                                Model model) {
+        model.addAttribute("students", studentService.studentList(groupId));
         return "student/Students";
     }
 
     @GetMapping("/getStudent")
-    public String getStudentAddPage(Model model){
+    public String getStudentAddPage(Model model) {
         model.addAttribute("student", new Student());
         return "student/addStudent";
     }
+
     @PostMapping("/postStudent")
-    public String studentSave(@ModelAttribute Student student, @RequestParam("groupId") Long id, Model model){
-        student.setGroup(groupService.getGroupId(id));
+    public String saveStudent(@ModelAttribute Student student, @RequestParam("groupId") Long groupId) {
+        student.setGroup(groupService.getGroupById(groupId));
         studentService.saveStudent(student);
-        model.addAttribute("students", studentService.studentList());
-        return "student/Students";
+        return "redirect:/student?groupId=" + groupId;
+    }
+
+    @GetMapping("/edit")
+    public String getStudentToUpdate(@RequestParam("studentId") Long studentId, Model model) {
+        Student student = studentService.getStudentById(studentId);
+        model.addAttribute("student", student);
+        return "student/updateStudent";
+    }
+
+    @PatchMapping("/update")
+    public String updateStudent(@ModelAttribute Student student, @RequestParam("studentId") Long studentId, @RequestParam("groupId") Long groupId) {
+        student.setId(studentId);
+        studentService.updateStudent(student);
+        return "redirect:/student?groupId=" + groupId;
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteStudent(@RequestParam("studentId") Long studentId, @RequestParam("groupId") Long groupId) {
+        studentService.deleteStudent(studentId);
+        return "redirect:/student?groupId=" + groupId;
     }
 }

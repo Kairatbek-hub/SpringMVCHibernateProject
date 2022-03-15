@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TeacherService {
     void saveTeacher(Teacher teacher);
-    List<Teacher> teacherList();
+    List<Teacher> teacherList(Long id);
     void updateTeacher(Teacher teacher);
     void deleteTeacher(Long id);
     Teacher getTeacherById(Long id);

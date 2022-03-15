@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update Group</title>
+    <title>Update Teacher</title>
 </head>
 <style>
     * {
@@ -56,15 +56,18 @@
 </style>
 <body>
 <div class="Block">
-    <form th:action="@{/group/update(groupId=${param.groupId},courseId=${param.courseId})}" th:method="patch" th:object="${group}">
+    <form th:action="@{/teacher/update(teacherId=${param.teacherId},courseId=${param.courseId})}" th:method="patch" th:object="${teacher}">
         <div>
-            <span class="title"><label for="name">Group Name: </label></span><input class="input" type="text" id="name" th:field="*{groupName}"/>
+            <span class="title"><label for="firsName">First Name: </label></span><input class="input" type="text" id="firsName" th:field="*{firstName}"/>
         </div>
         <div>
-            <span class="title"><label for="dateOfStart">Date of start: </label></span><input class="input" type="text" id="dateOfStart" th:field="*{dateOfStart}"/>
+            <span class="title"><label for="lastName">Last Name: </label></span><input class="input" type="text" id="lastName" th:field="*{lastName}"/>
         </div>
         <div>
-            <span class="title"><label for="dateOfFinish">Date of finish: </label></span><input class="input" type="text" id="dateOfFinish" th:field="*{dateOfFinish}"/>
+            <span class="title"><label for="email">Email Address: </label></span><input class="input" type="text" id="email" th:field="*{email}"/>
+        </div>
+        <div>
+            <span class="title"><label for="course_id">Course Id: </label></span><input class="input" type="text" id="course_id" th:field="*{course.id}"/>
         </div>
         <button class="mainButton" type="submit">Update</button>
     </form>

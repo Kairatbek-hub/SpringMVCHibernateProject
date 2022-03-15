@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
+    private final CompanyDao companyDao;
+
     @Autowired
-    private CompanyDao companyDao;
+    public CompanyServiceImpl(CompanyDao companyDao) {
+        this.companyDao = companyDao;
+    }
 
     @Override
     public void saveCompany(Company company) {
@@ -34,7 +38,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Company getById(Long id) {
-        return companyDao.getById(id);
+    public Company getCompanyById(Long id) {
+        return companyDao.getCompanyById(id);
     }
 }

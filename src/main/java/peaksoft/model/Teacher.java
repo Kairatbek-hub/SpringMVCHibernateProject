@@ -16,7 +16,7 @@ public class Teacher {
     @Column(name = "last_name")
     private String lastName;
     private String email;
-    @OneToOne(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {PERSIST,DETACH,REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
 

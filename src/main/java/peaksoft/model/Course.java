@@ -10,7 +10,17 @@ import static javax.persistence.CascadeType.*;
 @Table(name = "courses")
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "company_sequence",
+            sequenceName = "company_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "company_sequence"
+    )
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "course_name")
     private String courseName;
@@ -18,7 +28,7 @@ public class Course {
     @ManyToOne(cascade = {DETACH,REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
-    @ManyToMany(cascade = {ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {PERSIST,DETACH,MERGE,REFRESH,REMOVE}, fetch = FetchType.EAGER)
     @JoinTable(name = "course_group", joinColumns = @JoinColumn(name = "course_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<Group> groupList;

@@ -10,8 +10,12 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseService {
 
+    private final CourseDao courseDao;
+
     @Autowired
-    private CourseDao courseDao;
+    public CourseServiceImpl(CourseDao courseDao) {
+        this.courseDao = courseDao;
+    }
 
     @Override
     public void saveCourse(Course course) {
@@ -39,7 +43,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course getById(Long id) {
-        return courseDao.getById(id);
+    public Course getCourseById(Long id) {
+        return courseDao.getCourseById(id);
     }
 }

@@ -19,7 +19,7 @@ public class Student {
     @Column(name = "study_format")
     @Enumerated(value = EnumType.STRING)
     private StudyFormat studyFormat;
-    @ManyToOne(cascade = {PERSIST,DETACH,MERGE,REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {PERSIST,DETACH,REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
 

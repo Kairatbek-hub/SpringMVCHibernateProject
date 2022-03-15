@@ -27,11 +27,11 @@ public class TeacherDaoImpl implements TeacherDao {
     }
 
     @Override
-    public List<Teacher> teacherList() {
+    public List<Teacher> teacherList(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin();
-        List<Teacher> teachers = entityManager.createQuery("select t from Teacher t").getResultList();
+        List<Teacher> teachers = entityManager.createQuery("select t from Teacher t where t.course.id = :id",Teacher.class).setParameter("id", id).getResultList();
         entityManager.getTransaction().commit();
         entityManager.close();
         return teachers;

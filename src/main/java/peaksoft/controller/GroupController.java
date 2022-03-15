@@ -7,55 +7,60 @@ import org.springframework.web.bind.annotation.*;
 import peaksoft.model.Group;
 import peaksoft.service.CourseService;
 import peaksoft.service.GroupService;
+import peaksoft.service.TeacherService;
 
 @Controller
 @RequestMapping("/group")
 public class GroupController {
+    private final GroupService groupService;
+    private final CourseService courseService;
+    private final TeacherService teacherService;
+
     @Autowired
-    private GroupService groupService;
-    @Autowired
-    private CourseService courseService;
+    public GroupController(GroupService groupService, CourseService courseService, TeacherService teacherService) {
+        this.groupService = groupService;
+        this.courseService = courseService;
+        this.teacherService = teacherService;
+    }
 
     @GetMapping
-    public String getGroupInf(@RequestParam("courseId") Long id, Model model) {
-        model.addAttribute("groups", groupService.groupList());
+    public String getGroupAndTeacherInf(@RequestParam("courseId") Long courseId, Model model) {
+        model.addAttribute("groups", groupService.groupList(courseId));
+        model.addAttribute("teachers", teacherService.teacherList(courseId));
         return "group/Groups";
     }
 
     @GetMapping("/getGroup")
-    public String getGroupAddPage(Model model){
+    public String getGroupAddPage(Model model) {
         model.addAttribute("group", new Group());
         return "group/addGroup";
     }
+
     @PostMapping("/postGroup")
-    public String groupSave(@ModelAttribute Group group, @RequestParam("courseId") Long id, Model model){
-        group.setCourse(courseService.getById(id));
+    public String groupSave(@ModelAttribute Group group, @RequestParam("courseId") Long courseId) {
+        group.setCourse(courseService.getCourseById(courseId));
         groupService.saveGroup(group);
-        model.addAttribute("groups", groupService.groupList());
-        return "group/Groups";
+        return "redirect:/group?courseId=" + courseId;
     }
+
     @GetMapping("/edit")
-    public String getGroupToUpdate(@RequestParam("groupId") Long id, Model model) {
-        Group group = groupService.getGroupId(id);
+    public String getGroupToUpdate(@RequestParam("groupId") Long groupId, Model model) {
+        Group group = groupService.getGroupById(groupId);
         model.addAttribute("group", group);
         return "group/updateGroup";
     }
 
-    @PostMapping ("/update")
-    public String updateGroup(@ModelAttribute Group group, Model model){
+    @PatchMapping("/update")
+    public String updateGroup(@ModelAttribute Group group, @RequestParam("courseId") Long courseId, @RequestParam("groupId") Long groupId) {
+        group.setId(groupId);
         groupService.updateGroup(group);
-//        model.addAttribute("group", groupService.groupList());
-//       return "group/Groups";
-        return "redirect:/group";
+        return "redirect:/group?courseId=" + courseId;
     }
 
-    @GetMapping("/delete")
-    public String deleteGroup(@RequestParam("groupId") Long id, Model model) {
-        System.out.println(id);
-        groupService.deleteGroup(id);
-        model.addAttribute("group", groupService.groupList());
-//        return "group/Groups";
-        return "redirect:/group";
+    @DeleteMapping("/delete")
+    public String deleteGroup(@RequestParam("groupId") Long groupId, @RequestParam("courseId") Long courseId) {
+        groupService.deleteGroup(groupId);
+        return "redirect:/group?courseId=" + courseId;
     }
 }
 
